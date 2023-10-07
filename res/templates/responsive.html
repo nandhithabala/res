@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: url('https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(122).jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+    }
+
+    #auth-container {
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    #auth-tabs {
+      display: flex;
+      justify-content: space-between;
+      background-color: #54e4ee;
+      color: rgb(46, 44, 44);
+      padding: 10px;
+    }
+
+    .tab {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tab i {
+      margin-bottom: 5px;
+    }
+
+    #login-form,
+    #register-form {
+      padding: 20px;
+      display: none;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .auth-links {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .auth-links label {
+      display: flex;
+      align-items: center;
+    }
+
+    .auth-links a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .social-icons {
+      margin-top: 20px;
+    }
+
+    .social-icons i {
+      font-size: 24px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      #auth-container {
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+  <title>Login/Register</title>
+</head>
+<body>
+  <div id="auth-container">
+    <div id="auth-tabs">
+      <div class="tab" onclick="showForm('login-form')">
+        <i class="fas fa-sign-in-alt"></i><br>
+        Login
+      </div>
+      <div class="tab" onclick="showForm('register-form')">
+        <i class="fas fa-user-plus"></i><br>
+        Register
+      </div>
+    </div>
+
+    <form id="login-form" onsubmit="return validateForm('login')">
+      <input type="text" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Password" required>
+      <div class="auth-links">
+        <a href="#">Forgot Password?</a>
+        <label>
+          Remember Password
+          <input type="checkbox" id="remember-password"> <br>
+        </label>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+
+    <form id="register-form" onsubmit="return validateForm('register')">
+      <input type="text" id="register-email" placeholder="Email" required>
+      <input type="password" id="register-password" placeholder="Password" required>
+      <div class="auth-links">
+        <label for="remember-password-reg">
+          Remember Password
+          <input type="checkbox" id="remember-password-reg"> 
+        </label>
+      </div>
+      <button type="submit">Register</button>
+    </form>
+
+    <div class="social-icons">
+      <i class="fab fa-facebook"></i>
+      <i class="fab fa-google"></i>
+      <i class="fab fa-microsoft"></i>
+    </div>
+  </div>
+
+  <script>
+    function showForm(formId) {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('register-form').style.display = 'none';
+      document.getElementById(formId).style.display = 'block';
+    }
+
+    function validateForm(type) {
+      var email, password;
+
+      if (type === 'login') {
+        email = document.getElementById('login-email').value;
+        password = document.getElementById('login-password').value;
+      } else if (type === 'register') {
+        email = document.getElementById('register-email').value;
+        password = document.getElementById('register-password').value;
+      }
+
+      // Email validation
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        return false;
+      }
+
+      // Password validation
+      var passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(.{8,})$/;
+      if (!passwordRegex.test(password)) {
+        alert('Password must be at least 8 characters long and contain at least one uppercase letter, one number, and one special character.');
+        return false;
+      }
+
+      // If validations pass
+      alert(type === 'login' ? 'Login Successful!' : 'Registration Successful!');
+      return true;
+    }
+  </script>
+</body>
+</html>
